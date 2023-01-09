@@ -11,17 +11,19 @@ export default function GithubUserList({ names }) {
 
        const handleList = (event) => {
             event.preventDefault();
-            setState((prev) => [
-                ...prev, 
-                event.target.elements.name.value])
+            if (event.target.elements.name.value) {
+                setState((prev) => [
+                    ...prev, 
+                    event.target.elements.name.value])
+            }
         }
 
         return (
         <div>
             <form onSubmit={handleList}>
-                <p>Search a Github User</p>
+                <h1>Add a Github User</h1>
                 <input type="text" name="name"></input>
-                <button>Search</button>
+                <button>Add User</button>
             </form>
             {users}
         </div>

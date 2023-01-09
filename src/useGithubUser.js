@@ -5,28 +5,43 @@ export const useGithubUser = (name) => {
         name: "",
         id: "",
         followers: "",
-        repos: ""
+        repos: "",
+        isLoading: true,
+        error: false,
     });
-
-    useEffect(() => {
-        async function fetchData(username) {
-            try {
-                const fetchData = await fetch(`https://api.github.com/users/${username}`);
-                const data = await fetchData.json();
+    async function fetchData(username) {
+        try {
+            const fetchData = await fetch(`https://api.github.com/users/${username}`);
+            console.log(fetchData);
+            if (fetchData.status !== 200) {
+                return setState((pre) => {
+                    return { 
+                        ...pre,
+                        error: true,
+                    isLoading: false,
+                }
+                })
+            } 
+            const data = await fetchData.json();
                 setState(() => {
                     return {
                         name: data.name,
                         id: data.id,
                         followers: data.followers,
-                        repos: data.public_repos
+                        repos: data.public_repos,
                     }
                 })
-            } catch (err) {
-                console.log(err);
-            }
+        } catch (err) {
+           throw new Error("ops " + err)
         }
+    }
+    useEffect(() => {
         fetchData(name)
     }
         , [name]);
-        return [state, setState];
+        return {
+            state: state, 
+            setState: setState, 
+            fetchData: fetchData
+        };
 }
