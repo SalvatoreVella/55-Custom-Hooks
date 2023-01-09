@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+    @apply border border-black rounded;
+}
+
+h1 {
+    @apply text-3xl font-bold;
+}
+
+button {
+ @apply bg-slate-400 border rounded-md border-black px-2 py-1 mx-2 my-1;
+}
+
+.welcome {
+    background-color: aqua;
+    border: 1px solid black;
+    border-radius: 6px;
+    text-align: center;
+}
+
+#root {
+    @apply p-3;
+}
